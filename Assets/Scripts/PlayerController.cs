@@ -36,10 +36,10 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Asignamos el character controller a su variable
+
         TUMADRE = GetComponent<CharacterController>();
 
-        //anim = GetComponentInChildren<Animator>();
+        anim = GetComponentInChildren<Animator>();
 
         //Con esto podemos esconder el icono del raton para que no moleste
         Cursor.lockState = CursorLockMode.Locked;
@@ -55,9 +55,9 @@ public class PlayerController : MonoBehaviour
     void MovementTP()
     {
         float z = Input.GetAxisRaw("Vertical");
-        //anim.SetFloat("VelZ", z);
+        anim.SetFloat("VelZ", z);
         float x = Input.GetAxisRaw("Horizontal");
-        //anim.SetFloat("VelX", x);
+        anim.SetFloat("VelX", x);
         xAxis.Update(Time.deltaTime);
         yAxis.Update(Time.deltaTime);
 
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
             float targetAngle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, cam.eulerAngles.y, ref turnSmoothVelocity, turnSmoothTime);
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            //controller.Move(moveDirection.normalized * speed * Time.deltaTime);
+            TUMADRE.Move(moveDirection.normalized * speed * Time.deltaTime);
         }
         
     }
@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
         isGrounded = Physics.CheckSphere(groundSensor.position, sensorRadius, ground);
 
-        //anim.SetBool("Jump", !isGrounded);
+        anim.SetBool("Jump", !isGrounded);
 
         if (isGrounded && playerVelocity.y < 0)
         {
@@ -109,6 +109,6 @@ public class PlayerController : MonoBehaviour
 
         playerVelocity.y += gravity * Time.deltaTime;
 
-        //controller.Move(playerVelocity * Time.deltaTime);
+        TUMADRE.Move(playerVelocity * Time.deltaTime);
     }
 }
