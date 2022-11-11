@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public CharacterController TUMADRE;
+    public CharacterController controlercharacter;
     private Vector3 playerVelocity; 
     
     private Animator anim;
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
 
-        TUMADRE = GetComponent<CharacterController>();
+        controlercharacter = GetComponent<CharacterController>();
 
         anim = GetComponentInChildren<Animator>();
 
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
             float targetAngle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, cam.eulerAngles.y, ref turnSmoothVelocity, turnSmoothTime);
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            TUMADRE.Move(moveDirection.normalized * speed * Time.deltaTime);
+            controlercharacter.Move(moveDirection.normalized * speed * Time.deltaTime);
         }
         
     }
@@ -109,6 +109,6 @@ public class PlayerController : MonoBehaviour
 
         playerVelocity.y += gravity * Time.deltaTime;
 
-        TUMADRE.Move(playerVelocity * Time.deltaTime);
+        controlercharacter.Move(playerVelocity * Time.deltaTime);
     }
 }
